@@ -26,7 +26,7 @@ HandleLidSwitchDocked=ignore
 sudo sudo systemctl restart systemd-logind.service
 ```
 
-เสริมสหรับตั้งค่า line console
+เสริมสำหรับตั้งค่า line console
 
 ```bash
 sudo nano /etc/default/grub
