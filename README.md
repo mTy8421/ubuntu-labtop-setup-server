@@ -49,3 +49,13 @@ sudo apt install openssh-server
 sudo systemctl status ssh
 sudo ufw allow ssh
 ```
+# Ubuntu Desktop (setup)
+
+## install timeshift for backup
+```bash
+sudo apt install timeshift
+```
+## setup package manager
+```bash
+sudo apt install git wget curl golang gcc clang libdrm-dev libgtk-3-dev fzf make cmake
+```
