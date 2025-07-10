@@ -23,7 +23,7 @@ HandleLidSwitchDocked=ignore
 ทำการ reboot ระบบ loggin เพื่อใช้งาน
 
 ```bash
-sudo sudo systemctl restart systemd-logind.service
+sudo systemctl restart systemd-logind.service
 ```
 
 เสริมสำหรับตั้งค่า line console
