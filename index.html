@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubuntu Laptop Setup - Home Server & Desktop Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;1,400&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-orange-500 selection:text-white transition-colors duration-200">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/80 dark:border-slate-800 dark:bg-slate-950/80 backdrop-blur-md transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/20 text-white font-bold text-xl">
+          🐧
+        </div>
+        <div>
+          <span class="font-bold text-lg tracking-wide text-slate-900 dark:text-white flex items-center gap-2">
+            Ubuntu Laptop Setup
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 border border-orange-200 dark:bg-orange-500/10 dark:text-orange-400 dark:border-orange-500/30">Server & Dev</span>
+          </span>
+          <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">คู่มือเปลี่ยนแล็ปท็อปเป็นเซิร์ฟเวอร์ & สภาพแวดล้อม Development</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="chromebooksetup.md" class="hidden sm:inline-flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 hover:text-orange-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-orange-400 shadow-sm transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+          </svg>
+          Chromebook Setup
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button id="themeToggleBtn" type="button" aria-label="Toggle theme" title="สลับโหมดสว่าง/มืด" class="p-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800 shadow-sm transition">
+          <!-- Sun icon (shown when dark) -->
+          <svg id="themeIconSun" class="w-4 h-4 hidden text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+          <!-- Moon icon (shown when light) -->
+          <svg id="themeIconMoon" class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+        </button>
+
+        <button id="mobileMenuBtn" aria-label="Toggle navigation menu" class="lg:hidden p-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300 dark:hover:text-white shadow-sm focus:outline-none transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Sidebar Navigation / Table of Contents -->
+    <aside id="sidebarMenu" class="hidden lg:block lg:col-span-3">
+      <div class="sticky top-24 space-y-4 bg-white/90 dark:bg-slate-900/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm backdrop-blur-sm transition-colors">
+        <h3 class="text-xs uppercase font-semibold tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2">
+          <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+          </svg>
+          สารบัญเนื้อหา
+        </h3>
+        
+        <nav class="space-y-1 text-sm">
+          <div class="pt-1">
+            <a href="#server-setup" class="toc-link block font-medium text-slate-700 hover:text-orange-600 dark:text-slate-200 dark:hover:text-orange-400 py-1 transition">
+              1. การตั้งค่า Server บน Laptop
+            </a>
+            <div class="pl-3 space-y-1 border-l border-slate-200 dark:border-slate-800 ml-1 mt-1">
+              <a href="#lid-switch" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">1.1 ปิดฝาพับไม่ให้เครื่อง Sleep</a>
+              <a href="#console-blank" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">1.2 พักหน้าจออัตโนมัติ (GRUB)</a>
+              <a href="#mask-suspend" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">1.3 ปิดระบบ Sleep / Suspend</a>
+              <a href="#wifi-powersave" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">1.4 ปิดโหมดประหยัดไฟ Wi-Fi</a>
+            </div>
+          </div>
+
+          <div class="pt-3">
+            <a href="#ssh-setup" class="toc-link block font-medium text-slate-700 hover:text-orange-600 dark:text-slate-200 dark:hover:text-orange-400 py-1 transition">
+              2. การเชื่อมต่อระยะไกล (SSH)
+            </a>
+            <div class="pl-3 space-y-1 border-l border-slate-200 dark:border-slate-800 ml-1 mt-1">
+              <a href="#install-ssh" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">2.1 ติดตั้ง OpenSSH Server</a>
+              <a href="#check-ip" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">2.2 ตรวจสอบ IP และทดสอบต่อ</a>
+              <a href="#firewall-ufw" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">2.3 ตั้งค่า Firewall (UFW)</a>
+            </div>
+          </div>
+
+          <div class="pt-3">
+            <a href="#desktop-dev" class="toc-link block font-medium text-slate-700 hover:text-orange-600 dark:text-slate-200 dark:hover:text-orange-400 py-1 transition">
+              3. Desktop & Development
+            </a>
+            <div class="pl-3 space-y-1 border-l border-slate-200 dark:border-slate-800 ml-1 mt-1">
+              <a href="#update-system" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">3.1 อัปเดตระบบ</a>
+              <a href="#install-timeshift" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">3.2 สำรองข้อมูล (Timeshift)</a>
+              <a href="#dev-tools" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">3.3 ชุดเครื่องมือพัฒนา</a>
+              <a href="#monitoring-tools" class="toc-sublink block text-xs text-slate-500 hover:text-orange-600 dark:text-slate-400 dark:hover:text-orange-400 py-1 transition">3.4 มอนิเตอร์ระบบ (btop/tmux)</a>
+            </div>
+          </div>
+
+          <div class="pt-3">
+            <a href="#related-docs" class="toc-link block font-medium text-slate-700 hover:text-orange-600 dark:text-slate-200 dark:hover:text-orange-400 py-1 transition">
+              4. เอกสารที่เกี่ยวข้อง
+            </a>
+          </div>
+        </nav>
+
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
+          💡 คลิกที่ปุ่มคัดลอกในกล่องโค้ดเพื่อนำคำสั่งไปรันบน Terminal
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="lg:col-span-9 space-y-12">
+      
+      <!-- Hero Banner -->
+      <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-orange-50/50 to-amber-50/30 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950 border border-orange-100 dark:border-slate-800 p-6 sm:p-10 shadow-sm dark:shadow-2xl transition-colors">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-orange-500/10 dark:bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-16 -bottom-16 w-64 h-64 bg-amber-500/10 dark:bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100/80 border border-orange-200/80 text-orange-700 dark:bg-orange-500/10 dark:border-orange-500/20 dark:text-orange-400 text-xs font-semibold">
+            <span>🚀 Complete Setup & Reference</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+            Ubuntu Laptop Setup <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-amber-600 to-orange-500 dark:from-orange-400 dark:via-amber-300 dark:to-orange-500">
+              for Home Server & Desktop
+            </span>
+          </h1>
+          <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+            คู่มือการปรับแต่ง Ubuntu เมื่อนำเครื่องโน้ตบุ๊ก (Laptop) มาเปิดทิ้งไว้เป็น Home Server แบบปิดฝาพับ (Clamshell) หรือใช้งานสำหรับงาน Development อย่างมีประสิทธิภาพ
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href="#server-setup" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-medium text-sm transition shadow-lg shadow-orange-600/20">
+              <span>เริ่มตั้งค่า Server</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </a>
+            <a href="#ssh-setup" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 dark:border-slate-700 font-medium text-sm shadow-sm transition">
+              <span>ตั้งค่า SSH Remote</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1: Server Setup on Laptop -->
+      <section id="server-setup" class="scroll-mt-24 space-y-8">
+        <div class="border-b border-slate-200 dark:border-slate-800 pb-4 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-100 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400 font-bold border border-orange-200 dark:border-orange-500/20">1</span>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-wide">การตั้งค่าระบบ Server บน Laptop</h2>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">
+            แก้ปัญหาเครื่องดับหรือตัดเข้าโหมด Sleep เมื่อปิดฝาพับ และตั้งค่าให้เหมาะกับเซิร์ฟเวอร์
+          </p>
+        </div>
+
+        <!-- 1.1 Lid Switch -->
+        <article id="lid-switch" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <div class="flex items-start justify-between flex-wrap gap-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <span class="text-orange-600 dark:text-orange-400 font-mono">1.1</span> ปิดฝาพับโน้ตบุ๊กไม่ให้เครื่องดับ/Sleep (Lid Close Settings)
+            </h3>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 font-mono">/etc/systemd/logind.conf</span>
+          </div>
+          
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            เปิดไฟล์คอนฟิกของระบบจัดการล็อกอิน <code class="text-orange-700 bg-orange-50 border border-orange-200/80 dark:text-amber-400 dark:bg-slate-800 dark:border-transparent px-1.5 py-0.5 rounded text-xs font-mono">systemd-logind</code>:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo nano /etc/systemd/logind.conf">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo nano /etc/systemd/logind.conf</code></pre>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">
+            ค้นหาและแก้ไข (หากมีเครื่องหมาย <code class="text-slate-500 dark:text-slate-400 font-mono">#</code> อยู่ข้างหน้าให้นำออก) หรือเพิ่มบรรทัดเหล่านี้:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">ini config</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+HandleLidSwitchDocked=ignore">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-cyan-300 dark:border-slate-800"><code>HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+HandleLidSwitchDocked=ignore</code></pre>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 dark:bg-slate-800/50 dark:border-slate-700/60 dark:text-slate-300 space-y-1">
+            <div class="font-semibold text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
+              <span>📌 ข้อมูลเพิ่มเติม:</span>
+            </div>
+            <p>• ค่าดั้งเดิมของระบบคือ <code class="font-mono text-slate-800 bg-slate-200/60 dark:bg-slate-700 dark:text-slate-200 px-1 py-0.5 rounded">HandleLidSwitch=suspend</code></p>
+            <p>• การเปลี่ยนเป็น <code class="font-mono text-slate-800 bg-slate-200/60 dark:bg-slate-700 dark:text-slate-200 px-1 py-0.5 rounded">ignore</code> จะทำให้ระบบทำงานต่อไปตามปกติเมื่อฝาพับถูกปิดลง</p>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">รีสตาร์ตเซอร์วิส <code class="text-slate-800 dark:text-slate-200 font-mono">systemd-logind</code> เพื่อให้การตั้งค่ามีผล:</p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo systemctl restart systemd-logind.service">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo systemctl restart systemd-logind.service</code></pre>
+          </div>
+
+          <!-- Alert Note -->
+          <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs sm:text-sm text-amber-900 dark:bg-amber-500/10 dark:border-amber-500/20 dark:text-amber-200 flex items-start gap-3">
+            <span class="text-lg">⚠️</span>
+            <div>
+              <strong>ข้อควรระวัง:</strong> หากรันคำสั่งรีสตาร์ตนี้บนหน้าจอ Desktop Environment (GUI) เซสชันกราฟิกอาจรีโหลดและล็อกเอาต์ได้ หากเป็นไปได้แนะนำให้รันผ่าน SSH หรือเซฟไฟล์งานทั้งหมดก่อน
+            </div>
+          </div>
+        </article>
+
+        <!-- 1.2 Console Blanking -->
+        <article id="console-blank" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <div class="flex items-start justify-between flex-wrap gap-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <span class="text-orange-600 dark:text-orange-400 font-mono">1.2</span> พักหน้าจออัตโนมัติเพื่อถนอมจอภาพ (Console Blanking)
+            </h3>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 font-mono">/etc/default/grub</span>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            สำหรับเครื่องที่รันโหมด TTY/Console การเปิดหน้าจอทิ้งไว้อาจทำให้เกิดอาการจอเบิร์น (Screen Burn-in) และเปลืองพลังงาน สามารถตั้งให้จอดับอัตโนมัติได้เมื่อไม่มีการกดคีย์บอร์ด (เช่น 300 วินาที = 5 นาที)
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo nano /etc/default/grub">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo nano /etc/default/grub</code></pre>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">
+            แก้ไขหรือเพิ่มพารามิเตอร์ <code class="text-orange-700 bg-orange-50 border border-orange-200/80 dark:text-orange-400 dark:bg-slate-800 dark:border-transparent px-1.5 py-0.5 rounded text-xs font-mono">consoleblank=300</code>:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">grub config</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="GRUB_CMDLINE_LINUX=&quot;consoleblank=300&quot;">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-cyan-300 dark:border-slate-800"><code>GRUB_CMDLINE_LINUX="consoleblank=300"</code></pre>
+          </div>
+
+          <div class="text-xs text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-200 dark:text-slate-400 dark:bg-slate-800/40 dark:border-slate-800">
+            💡 <strong>หมายเหตุ:</strong> หากมีค่าเดิมอยู่แล้ว สามารถเว้นวรรคแล้วต่อท้ายได้ เช่น: <br>
+            <code class="text-slate-800 dark:text-slate-200 font-mono">GRUB_CMDLINE_LINUX_DEFAULT="quiet splash consoleblank=300"</code>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">อัปเดต GRUB และรีบูตเครื่องเพื่อใช้งาน:</p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo update-grub
+sudo reboot">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo update-grub
+sudo reboot</code></pre>
+          </div>
+        </article>
+
+        <!-- 1.3 Mask Suspend -->
+        <article id="mask-suspend" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <div class="flex items-start justify-between flex-wrap gap-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <span class="text-orange-600 dark:text-orange-400 font-mono">1.3</span> ปิดระบบ Sleep / Suspend โดยสิ้นเชิง (ทางเลือกเสริม)
+            </h3>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 font-mono">systemctl mask</span>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            หากต้องการให้มั่นใจ 100% ว่าเครื่องจะไม่เข้าสู่ Sleep หรือ Hibernation ไม่ว่าจะเกิดเหตุการณ์ใด ให้ Mask service targets ของ systemd:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash (Mask Sleep)</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target</code></pre>
+          </div>
+
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            หากต้องการปลดล็อกกลับมาใช้งานโหมด Sleep ตามปกติในภายหลัง:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash (Unmask Sleep)</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target</code></pre>
+          </div>
+        </article>
+
+        <!-- 1.4 Wi-Fi Powersave -->
+        <article id="wifi-powersave" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <div class="flex items-start justify-between flex-wrap gap-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <span class="text-orange-600 dark:text-orange-400 font-mono">1.4</span> ปิดโหมดประหยัดพลังงานของ Wi-Fi (Wi-Fi Power Saving)
+            </h3>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 font-mono">NetworkManager</span>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            หากแล็ปท็อปเชื่อมต่ออินเทอร์เน็ตผ่าน Wi-Fi ตัวการ์ดอาจตัดเข้าโหมด Power Saving เมื่อไม่มีทราฟฟิก ส่งผลให้ SSH หลุดหรือไม่สามารถเชื่อมต่อเข้ามาได้:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo nano /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo nano /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf</code></pre>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">เปลี่ยนค่าจาก <code class="text-rose-600 bg-rose-50 border border-rose-200/60 dark:text-rose-400 dark:bg-slate-800 dark:border-transparent px-1.5 py-0.5 rounded text-xs font-mono">3</code> (เปิดโหมดประหยัดไฟ) เป็น <code class="text-emerald-600 bg-emerald-50 border border-emerald-200/60 dark:text-emerald-400 dark:bg-slate-800 dark:border-transparent px-1.5 py-0.5 rounded text-xs font-mono">2</code> (ปิดโหมดประหยัดไฟ):</p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">conf</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="[connection]
+wifi.powersave = 2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-cyan-300 dark:border-slate-800"><code>[connection]
+wifi.powersave = 2</code></pre>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">รีสตาร์ต NetworkManager:</p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo systemctl restart NetworkManager">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo systemctl restart NetworkManager</code></pre>
+          </div>
+        </article>
+      </section>
+
+      <!-- Section 2: Remote Access / SSH -->
+      <section id="ssh-setup" class="scroll-mt-24 space-y-8">
+        <div class="border-b border-slate-200 dark:border-slate-800 pb-4 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold border border-emerald-200 dark:border-emerald-500/20">2</span>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-wide">การตั้งค่าการเชื่อมต่อระยะไกล (SSH Setup)</h2>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">
+            ติดตั้งเซอร์วิส OpenSSH ตรวจสอบ IP และเปิดพอร์ต Firewall ให้เชื่อมต่อได้จากภายนอก
+          </p>
+        </div>
+
+        <!-- 2.1 OpenSSH Server -->
+        <article id="install-ssh" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <span class="text-emerald-600 dark:text-emerald-400 font-mono">2.1</span> ติดตั้งและเปิดใช้งาน OpenSSH Server
+          </h3>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">
+            ติดตั้ง <code class="text-slate-800 bg-slate-100 border border-slate-200 dark:text-slate-200 dark:bg-slate-800 dark:border-transparent px-1.5 py-0.5 rounded text-xs font-mono">openssh-server</code> และสั่งให้เริ่มทำงานอัตโนมัติตอนบูตระบบ:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo apt update
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
+sudo systemctl status ssh">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo apt update
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
+sudo systemctl status ssh</code></pre>
+          </div>
+        </article>
+
+        <!-- 2.2 Check IP -->
+        <article id="check-ip" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <span class="text-emerald-600 dark:text-emerald-400 font-mono">2.2</span> ตรวจสอบ IP Address และทดสอบการเชื่อมต่อ
+          </h3>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">ค้นหาหมายเลข IP Address บนเครือข่ายท้องถิ่น (LAN):</p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash (บนเครื่อง Server)</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="hostname -I">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>hostname -I</code></pre>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">จากนั้นทดสอบเชื่อมต่อจากเครื่องคอมพิวเตอร์ของคุณ (Client):</p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">ssh client</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="ssh <username>@<server-ip>">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-cyan-300 dark:border-slate-800"><code>ssh &lt;username&gt;@&lt;server-ip&gt;</code></pre>
+          </div>
+        </article>
+
+        <!-- 2.3 Firewall UFW -->
+        <article id="firewall-ufw" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <span class="text-emerald-600 dark:text-emerald-400 font-mono">2.3</span> การตั้งค่า Firewall (UFW)
+          </h3>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">
+            อนุญาตให้ Port 22 (SSH) ส่งข้อมูลผ่านไฟร์วอลล์ได้ เพื่อไม่ให้ถูกบล็อกการเชื่อมต่อ:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo ufw allow ssh
+sudo ufw enable
+sudo ufw status">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo ufw allow ssh
+sudo ufw enable
+sudo ufw status</code></pre>
+          </div>
+        </article>
+      </section>
+
+      <!-- Section 3: Ubuntu Desktop & Development -->
+      <section id="desktop-dev" class="scroll-mt-24 space-y-8">
+        <div class="border-b border-slate-200 dark:border-slate-800 pb-4 transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400 font-bold border border-sky-200 dark:border-sky-500/20">3</span>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-wide">การตั้งค่าสำหรับ Ubuntu Desktop & Development</h2>
+          </div>
+          <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">
+            ติดตั้งชุดเครื่องมือจำเป็นสำหรับนักพัฒนา การสำรองข้อมูล และเครื่องมือตรวจสอบเซิร์ฟเวอร์
+          </p>
+        </div>
+
+        <!-- 3.1 Update -->
+        <article id="update-system" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <span class="text-sky-600 dark:text-sky-400 font-mono">3.1</span> อัปเดตระบบ
+          </h3>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">
+            อัปเดตแคชรายการแพ็กเกจและอัปเกรดซอฟต์แวร์ระบบให้เป็นเวอร์ชันล่าสุด:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo apt update && sudo apt upgrade -y">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo apt update && sudo apt upgrade -y</code></pre>
+          </div>
+        </article>
+
+        <!-- 3.2 Timeshift -->
+        <article id="install-timeshift" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <div class="flex items-start justify-between flex-wrap gap-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <span class="text-sky-600 dark:text-sky-400 font-mono">3.2</span> ติดตั้ง Timeshift สำหรับสำรองข้อมูล
+            </h3>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700">Backup & Restore</span>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            Timeshift ทำหน้าที่คล้าย System Restore ใน Windows ช่วยถ่ายภาพสแนปชอตของระบบ (Snapshot) เผื่อในกรณีที่ติดตั้งแพ็กเกจหรือแก้คอนฟิกแล้วระบบพัง สามารถ Rollback กลับมาได้ทันที:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo apt install -y timeshift">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo apt install -y timeshift</code></pre>
+          </div>
+        </article>
+
+        <!-- 3.3 Dev Tools -->
+        <article id="dev-tools" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <div class="flex items-start justify-between flex-wrap gap-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <span class="text-sky-600 dark:text-sky-400 font-mono">3.3</span> ติดตั้งเครื่องมือและชุดพัฒนา (Development Tools)
+            </h3>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700">Compiler & Utilities</span>
+          </div>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">
+            รวมแพ็กเกจคอมไพเลอร์, ไลบรารีกราฟิก, เครื่องมือ CLI และภาษา Go:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo apt install -y git wget curl build-essential make cmake gcc clang golang fzf libdrm-dev libgtk-3-dev">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo apt install -y \
+  git \
+  wget \
+  curl \
+  build-essential \
+  make \
+  cmake \
+  gcc \
+  clang \
+  golang \
+  fzf \
+  libdrm-dev \
+  libgtk-3-dev</code></pre>
+          </div>
+        </article>
+
+        <!-- 3.4 Monitoring Tools -->
+        <article id="monitoring-tools" class="scroll-mt-24 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4 transition-colors">
+          <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <span class="text-sky-600 dark:text-sky-400 font-mono">3.4</span> แนะนำเครื่องมือมอนิเตอร์และบริหารระบบ (Monitoring & TUI)
+          </h3>
+
+          <p class="text-slate-600 dark:text-slate-300 text-sm">
+            เครื่องมือ TUI สำคัญที่ช่วยให้ดูแลและตรวจสอบทรัพยากรบนเซิร์ฟเวอร์ได้ง่ายขึ้น:
+          </p>
+
+          <div class="code-block-wrapper relative group">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-100 border-b border-slate-200 dark:bg-slate-800/80 dark:border-slate-700/60 rounded-t-xl text-xs text-slate-500 dark:text-slate-400">
+              <span class="font-mono">bash</span>
+              <button class="copy-btn flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition" data-code="sudo apt install -y htop btop tmux net-tools">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>คัดลอก</span>
+              </button>
+            </div>
+            <pre class="bg-slate-50 p-4 rounded-b-xl overflow-x-auto text-sm text-slate-800 font-mono border border-t-0 border-slate-200 dark:bg-slate-900 dark:text-emerald-400 dark:border-slate-800"><code>sudo apt install -y htop btop tmux net-tools</code></pre>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 dark:bg-slate-800/40 dark:border-slate-800 dark:text-slate-300 transition-colors">
+              <span class="font-bold text-amber-600 dark:text-amber-400 text-sm block mb-1">📊 btop / htop</span>
+              ใช้ดูการใช้ CPU, RAM, Network I/O, Disk usage และความร้อนของเซิร์ฟเวอร์แบบกราฟฟิกสวยงาม
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 dark:bg-slate-800/40 dark:border-slate-800 dark:text-slate-300 transition-colors">
+              <span class="font-bold text-sky-600 dark:text-sky-400 text-sm block mb-1">🖥️ tmux</span>
+              รัน Terminal หลายหน้าต่างและคงเซสชันการทำงานไว้แม้ตัดการเชื่อมต่อ SSH เหมาะสำหรับรันบอท/เซิร์ฟเวอร์
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Section 4: Related Docs -->
+      <section id="related-docs" class="scroll-mt-24 pt-4 border-t border-slate-200 dark:border-slate-800 space-y-4 transition-colors">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span>📚</span> เอกสารและไกด์อื่นๆ ในโปรเจกต์
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a href="chromebooksetup.md" class="group block p-5 rounded-2xl bg-white dark:bg-gradient-to-br dark:from-slate-900 dark:to-slate-950 border border-slate-200 dark:border-slate-800 hover:border-orange-500/50 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-semibold text-slate-900 group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 transition flex items-center gap-2">
+                <span>💻</span> Chromebook Setup
+              </span>
+              <span class="text-xs text-slate-400 dark:text-slate-500 font-mono">chromebooksetup.md</span>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              วิธีติดตั้ง Nerd Fonts (JetBrains Mono) พร้อม Ligatures สำหรับ Crostini Terminal บน Chrome OS
+            </p>
+          </a>
+
+          <a href="README.md" class="group block p-5 rounded-2xl bg-white dark:bg-gradient-to-br dark:from-slate-900 dark:to-slate-950 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-semibold text-slate-900 group-hover:text-emerald-600 dark:text-white dark:group-hover:text-emerald-400 transition flex items-center gap-2">
+                <span>📝</span> README.md
+              </span>
+              <span class="text-xs text-slate-400 dark:text-slate-500 font-mono">Markdown Version</span>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              เอกสารต้นฉบับในรูปแบบ Markdown สำหรับดูบน GitHub Repository
+            </p>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-950 mt-16 py-8 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      <div class="flex items-center gap-2">
+        <span>🐧 Ubuntu Laptop Setup Guide</span>
+        <span>•</span>
+        <span>Made for Home Server & Development</span>
+      </div>
+      <div>
+        <span>ปรับปรุงล่าสุด: 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification for Copy -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 text-white dark:bg-emerald-500 dark:text-slate-950 font-medium text-xs shadow-xl shadow-emerald-600/20">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <span>คัดลอกคำสั่งเรียบร้อยแล้ว!</span>
+  </div>
+
+
+</body>
+</html>
